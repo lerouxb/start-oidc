@@ -27,7 +27,7 @@ async function start(issuer: string) {
     `oidcIdentityProviders=${JSON.stringify([serverOidcConfig])}`,
     '--bind_ip_all',
     '--port',
-    '27017'
+    '27017',
   ];
 
   //if (serverSatisfies('>= 8.1.0-rc0', true)) {
@@ -39,6 +39,7 @@ async function start(issuer: string) {
 
   const cluster = await startTestServer({
     version: 'latest-enterprise',
+    logDir: '/start-oidc',
     args
   });
   console.log('connection string:', cluster.connectionString);
@@ -51,6 +52,8 @@ async function stop() {
 */
 
 const issuer = process.argv[2];
+
+console.log('issuer', issuer);
 
 start(issuer)
   .then(() => console.log('started'))
