@@ -1,9 +1,12 @@
-// docker run --rm -v .:/start-oidc -w /start-oidc -p 27017:27017 -p 38231:38231 node:20 bash -c 'npm i && npx ts-node start-oidc.ts "http://localhost:38231"'
-// docker run --network host --rm -v .:/start-oidc -w /start-oidc node:20 bash -c 'npm i && npx ts-node start-oidc.ts "http://localhost:38231"'
-// (where http://localhost:38231 is the issuer, so change according to your OIDC Mock Provider config)
+// assuming you're on arm64 mac:
+// docker run -e EXPERIMENTAL_DOCKER_DESKTOP_FORCE_QEMU=1 --network host --platform linux/amd64 --rm -v .:/start-oidc -w /start-oidc node:20 bash -c 'npm i && npx ts-node start-oidc.ts "http://localhost:38231"'
+// where http://localhost:38231 is the issuer, so change according to your OIDC Mock Provider config
+// This requires host networking enabled in docker for mac/windows which requires sign in to docker.
 
 //import type { MongoCluster } from '@mongodb-js/compass-test-server';
 import { startTestServer } from '@mongodb-js/compass-test-server';
+import createDebug from 'debug';
+createDebug.enable('mongodb-runner');
 
 //let cluster: MongoCluster;
 
